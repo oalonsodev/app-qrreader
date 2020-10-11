@@ -4,9 +4,14 @@ import 'package:flutter_map/flutter_map.dart';
 // Importaciones personalizadas
 import 'package:qrreader/src/models/scan_model.dart';
 
-class MapPage extends StatelessWidget {
+class MapPage extends StatefulWidget {
 
-  final map = new MapController();
+  @override
+  _MapPageState createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
+  MapController map = new MapController();
 
 	@override
 	Widget build(BuildContext context) {
@@ -26,6 +31,11 @@ class MapPage extends StatelessWidget {
 				],
 			),
 			body: _createFlutterMap(scan),
+
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.repeat),
+        onPressed: (){}
+      ),
 		);
 	}
 
