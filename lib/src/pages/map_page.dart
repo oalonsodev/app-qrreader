@@ -11,7 +11,9 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  MapController map = new MapController();
+  final mapController = new MapController();
+
+  String mapType = 'streets-v11';
 
 	@override
 	Widget build(BuildContext context) {
@@ -26,7 +28,9 @@ class _MapPageState extends State<MapPage> {
 				actions: <Widget>[
 					IconButton(
 						icon: Icon(Icons.my_location),
-						onPressed: () => map.move(scan.getLatLng(), 30),
+						onPressed: (){
+              mapController.move(scan.getLatLng(), 30);
+            },
 					)
 				],
 			),
@@ -34,15 +38,48 @@ class _MapPageState extends State<MapPage> {
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.repeat),
-        onPressed: (){}
+        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: () => _mapSelect()
       ),
 		);
 	}
 
+	void _mapSelect(){
+    switch (mapType) {
+      case 'streets-v11':
+        mapType = 'outdoors-v11';
+        break;
+
+      case 'outdoors-v11':
+        mapType = 'light-v10';
+        break;
+
+      case 'light-v10':
+        mapType = 'dark-v10';
+        break;
+
+      case 'dark-v10':
+        mapType = 'satellite-v9';
+        break;
+
+      case 'satellite-v9':
+        mapType = 'satellite-streets-v11';
+        break;
+
+      case 'satellite-streets-v11':
+        mapType = 'streets-v11';
+        break;
+
+      default: mapType = 'streets-v11';
+    }
+    print('$mapType');
+    setState((){});
+  }
+
 	Widget _createFlutterMap(ScanModel scan) {
 		return FlutterMap(
 			options: MapOptions(
-        controller: map,
+        controller: mapController,
 				center: scan.getLatLng(),
 				zoom: 15.0,
 			),
@@ -58,7 +95,7 @@ class _MapPageState extends State<MapPage> {
       '{id}/tiles/{z}/{x}/{y}@2x?access_token={accessToken}',
     additionalOptions: {
       'accessToken'	:	'pk.eyJ1Ijoiam9yZ2VncmVnb3J5IiwiYSI6ImNrODk5aXE5cjA0c2wzZ3BjcTA0NGs3YjcifQ.H9LcQyP_-G9sxhaT5YbVow',
-      'id'					:	'mapbox/streets-v11'
+      'id'					:	'mapbox/$mapType'
                     /* outdoors-v11, light-v10, dark-v10, satellite-v9, satellite-streets-v11 */
     }
   );
