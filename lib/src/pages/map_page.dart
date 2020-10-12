@@ -36,45 +36,47 @@ class _MapPageState extends State<MapPage> {
 			),
 			body: _createFlutterMap(scan),
 
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.repeat),
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () => _mapSelect()
-      ),
+      floatingActionButton: _crateFAButton(context),
 		);
 	}
 
-	void _mapSelect(){
-    switch (mapType) {
-      case 'streets-v11':
-        mapType = 'outdoors-v11';
-        break;
+	FloatingActionButton _crateFAButton(BuildContext context) {
+	  return FloatingActionButton(
+      child: Icon(Icons.repeat),
+      backgroundColor: Theme.of(context).primaryColor,
+      onPressed: (){
+        switch (mapType) {
+          case 'streets-v11':
+            mapType = 'outdoors-v11';
+            break;
 
-      case 'outdoors-v11':
-        mapType = 'light-v10';
-        break;
+          case 'outdoors-v11':
+            mapType = 'light-v10';
+            break;
 
-      case 'light-v10':
-        mapType = 'dark-v10';
-        break;
+          case 'light-v10':
+            mapType = 'dark-v10';
+            break;
 
-      case 'dark-v10':
-        mapType = 'satellite-v9';
-        break;
+          case 'dark-v10':
+            mapType = 'satellite-v9';
+            break;
 
-      case 'satellite-v9':
-        mapType = 'satellite-streets-v11';
-        break;
+          case 'satellite-v9':
+            mapType = 'satellite-streets-v11';
+            break;
 
-      case 'satellite-streets-v11':
-        mapType = 'streets-v11';
-        break;
+          case 'satellite-streets-v11':
+            mapType = 'streets-v11';
+            break;
 
-      default: mapType = 'streets-v11';
-    }
-    print('$mapType');
-    setState((){});
-  }
+          default: mapType = 'streets-v11';
+        }
+
+        setState((){});
+      } 
+    );
+	}
 
 	Widget _createFlutterMap(ScanModel scan) {
 		return FlutterMap(
