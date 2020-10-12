@@ -6,13 +6,15 @@ import 'package:qrreader/src/models/scan_model.dart';
 import 'package:qrreader/src/utils/utils.dart' as utils;
 
 class DirectionsPage extends StatelessWidget {
+  final scansBloc = new ScansBloc();
+  
   @override
   Widget build(BuildContext context) {
     //Variables de la clase
-    final scansBloc = new ScansBloc();
+    scansBloc.getScans();
 
     return StreamBuilder<List<ScanModel>>(
-      stream: scansBloc.scansStream,
+      stream: scansBloc.scansStreamHttp,
       builder: (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot){
 
         if (snapshot.hasData) {
@@ -36,7 +38,7 @@ class DirectionsPage extends StatelessWidget {
             },
           );
         } else {
-          return Center(child: Text('No hay información para mostrar.'));
+          return Center(child: Text('¡Nada por acá!'));
         }
       }
     );

@@ -73,28 +73,23 @@ class _HomePageState extends State<HomePage> {
 	}
 
 	void _scanQR( BuildContext context ) async{
-    String futureString = 'https://www.google.com';
+    String futureString;
+    // String futureString = 'https://www.google.com';
     // String futureString = 'geo:40.774170787438734,-73.72853651484378';
     
-    // try {
-    //   futureString = await BarcodeScanner.scan();
-    // } catch (e) {
-    //   futureString = e.toString();
-    //   print('No hay dato leido');
-    // }
+    try {
+      futureString = await BarcodeScanner.scan();
+    } catch (e) {
+      futureString = e.toString();
+      print('No hay dato leido $futureString');
+    }
 
     if(futureString != null){
-      print(futureString);
       final scan = new ScanModel(valor: futureString);
       scanBloc.insertScan(scan);
     
-      final scan2 = new ScanModel(valor: 'geo:40.774170787438734,-73.72853651484378');
-      scanBloc.insertScan(scan2);
+      utils.openScan(context, scan);
       
-      // utils.openScan(context, scan);
     }
-
-
   }
-
 }
