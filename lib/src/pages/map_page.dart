@@ -78,8 +78,8 @@ class _MapPageState extends State<MapPage> {
 
 	Widget _createFlutterMap(ScanModel scan) {
 		return FlutterMap(
+      mapController: mapController,
 			options: MapOptions(
-        controller: mapController,
 				center: scan.getLatLng(),
 				zoom: 15.0,
 			),
