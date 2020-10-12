@@ -61,11 +61,11 @@ class _HomePageState extends State<HomePage> {
 			items: [
 				BottomNavigationBarItem(
 					icon: Icon(Icons.map),
-					title: Text('Mapas'),
+					label: 'Mapas',
 				),
 				BottomNavigationBarItem(
 					icon: Icon(Icons.group_work),
-					title: Text('Direcciones')
+					label:'Direcciones',
 				)
 
 			],
